@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Money from "@/views/Money.vue";
 import Statistics from "@/views/Statistics.vue";
 import Label from "@/views/Label.vue";
+import NotFound from "@/views/NotFound.vue";
 
 Vue.use(VueRouter);
 
@@ -23,7 +24,11 @@ const routes = [
     path:'/statistics',
     name:'statistics',
     component: Statistics
-  }
+  },
+  {
+    path:'*',
+    component: NotFound
+  },
 ];
 
 const router = new VueRouter({
