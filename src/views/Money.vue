@@ -1,13 +1,13 @@
 <template>
     <div>
         money
+        <Nav/>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
-
-    @Component
+    @Component({})
     export default class Money extends Vue {
         name: "Money" | undefined
     }
