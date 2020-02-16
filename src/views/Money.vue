@@ -58,4 +58,12 @@
 
 <style lang="scss" scoped>
     @import "~@/assets/stylebasic.scss";
+    .tags{
+        >.current{
+            display: flex;
+            >li{
+                background: #d9d9d9;
+            }
+        }
+    }
 </style>
