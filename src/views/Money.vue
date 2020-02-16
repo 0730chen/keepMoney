@@ -59,10 +59,33 @@
 <style lang="scss" scoped>
     @import "~@/assets/stylebasic.scss";
     .tags{
-        >.current{
+        font-size: 14px;
+        padding: 16px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        >.items{
             display: flex;
+            flex-wrap: wrap;
             >li{
                 background: #d9d9d9;
+                $h: 24px;
+                height: $h;
+                line-height: $h;
+                border-radius: $h/2;
+                padding: 0 16px;
+                margin-right: 12px;
+                margin-top: 4px;
+            }
+        }
+        >.new{
+            padding-top: 16px;
+            button{
+                background: transparent;
+                border: none;
+                color: #999;
+                border-bottom: 1px solid;
+                padding: 0 4px;
             }
         }
     }
