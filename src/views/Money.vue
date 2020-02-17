@@ -4,7 +4,7 @@
             <NumberPad/>
             <Types :xxx=" 'type' "/>
             <Notes/>
-            <Tags/>
+            <Tags :data-source.sync="tags"/>
         </Layout>
     </div>
 </template>
@@ -25,7 +25,8 @@
         }
     })
     export default class Money extends Vue {
-        name: "Money" | undefined
+        name: "Money" | undefined;
+        tags: string[] = ['衣服', '食物', '交通', '消费']
     }
 </script>
 <style lang="scss">
