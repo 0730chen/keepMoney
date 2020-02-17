@@ -2,8 +2,8 @@
     <div>
         <Layout>
             <ol class="tags">
-                <li v-for = "(item,index) in tags" :key="index">
-                    <span>{{item}}</span>
+                <li v-for = "item in tags" :key="item.id">
+                    <span>{{item.name}}</span>
                     <Icons IconName="right"/>
                 </li>
             </ol>
