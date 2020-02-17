@@ -17,6 +17,7 @@
     import Tags from "@/components/Tags.vue";
     import Notes from "@/components/Notes.vue";
     const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+    const {model}= require('@/model.js')
     window.localStorage.setItem('version','1.0.0');
 
     type Record = {
@@ -37,7 +38,7 @@
     export default class Money extends Vue {
         name: "Money" | undefined;
         tags: string[] = ['衣服', '食物', '交通', '消费'];
-        recordList: Record[] = recordList;
+        recordList: Record[] = model.fetch()
         record: Record = {
             tags: [],
             notes: '',
