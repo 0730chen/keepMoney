@@ -14,12 +14,15 @@
     export default class Types extends Vue {
         name: "Types" | undefined;
         type = '-';
-
+        @Prop(String) xxx: string | undefined
         SelectedTypes(type: string) {
             if (type !== '-' && type !== '+') {
                 throw new Error('type is unknow')
             }
             this.type = type
+        }
+        mounted(): void {
+            console.log(this.xxx);
         }
     }
 </script>
