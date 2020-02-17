@@ -54,7 +54,7 @@
             this.output ='0'
         }
         ok(){
-            console.log('保存')
+            this.$emit('update:value',this.output)
         }
     }
 </script>

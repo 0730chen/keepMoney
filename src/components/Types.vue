@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import {Component, Prop, Vue,Watch} from 'vue-property-decorator';
 
     @Component
     export default class Types extends Vue {
@@ -23,6 +23,10 @@
         }
         mounted(): void {
             console.log(this.xxx);
+        }
+        @Watch('type')
+        onTypeChange(value: string){
+            this.$emit('update:value',value)
         }
     }
 </script>

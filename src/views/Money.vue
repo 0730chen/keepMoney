@@ -1,10 +1,11 @@
 <template>
     <div>
         <Layout class-prefix="layout">
-            <NumberPad/>
-            <Types :xxx=" 'type' "/>
-            <Notes/>
-            <Tags :data-source.sync="tags"/>
+            {{record}}
+            <NumberPad @update:value="onUpdateCount"/>
+            <Types :xxx=" 'type' " @update:value="onUpdateTypes"/>
+            <Notes @update:value="onUpdateNotes"/>
+            <Tags :data-source.sync="tags" @update:selected="OnSelectedTags"/>
         </Layout>
     </div>
 </template>
@@ -16,6 +17,12 @@
     import Tags from "@/components/Tags.vue";
     import Notes from "@/components/Notes.vue";
 
+    type Record = {
+        tags: string[];
+        notes: string;
+        type: string;
+        amount: number;
+    }
     @Component({
         components: {
             Notes,
@@ -26,7 +33,29 @@
     })
     export default class Money extends Vue {
         name: "Money" | undefined;
-        tags: string[] = ['衣服', '食物', '交通', '消费']
+        tags: string[] = ['衣服', '食物', '交通', '消费'];
+        record: Record = {
+            tags: [],
+            notes: '',
+            type: '-',
+            amount: 0
+        }
+
+        OnSelectedTags(tags: string[]) {
+            this.record.tags = tags
+        }
+
+        onUpdateNotes(value: string) {
+            this.record.notes = value
+        }
+
+        onUpdateTypes(value: string) {
+            this.record.type = value
+        }
+
+        onUpdateCount(value: string) {
+            this.record.amount = parseFloat(value)
+        }
     }
 </script>
 <style lang="scss">
