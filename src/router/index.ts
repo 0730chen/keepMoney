@@ -27,7 +27,7 @@ const routes = [
     component: Statistics
   },
   {
-    path:'/labels/edit',
+    path:'/label/edit/:id',
     name:'labelsEdit',
     component: EditLabel
   },

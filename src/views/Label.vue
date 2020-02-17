@@ -1,17 +1,15 @@
 <template>
-    <div>
         <Layout>
-            <ol class="tags">
-                <li v-for = "item in tags" :key="item.id">
+            <div class="tags">
+                <router-link v-for = "item in tags" :key="item.id" :to="`/label/edit/${item.id}`" class="tag">
                     <span>{{item.name}}</span>
                     <Icons IconName="right"/>
-                </li>
-            </ol>
+                </router-link>
+            </div>
             <div class="newTags-wrapper">
                 <button class="newTags" @click="creteTags">新增标签</button>
             </div>
         </Layout>
-    </div>
 </template>
 
 <script lang="ts">
@@ -48,7 +46,7 @@
         font-size: 16px;
         padding-left: 16px;
 
-        > li {
+        > .tag {
             min-height: 44px;
             display: flex;
             align-items: center;
