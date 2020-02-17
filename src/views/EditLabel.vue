@@ -1,6 +1,9 @@
 <template>
     <Layout>
-        编辑标签
+        <div class="title">
+            <Icons IconName="left"></Icons>
+            <span>编辑标签</span>
+        </div>
     </Layout>
 </template>
 
@@ -27,5 +30,11 @@
 </script>
 
 <style lang="scss" scoped>
-
+.title{
+    display: flex;
+    flex-direction: row;
+    >span{
+        margin: 0 auto;
+    }
+}
 </style>
