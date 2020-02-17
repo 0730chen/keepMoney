@@ -1,7 +1,6 @@
 <template>
     <div>
         <Layout class-prefix="layout">
-            {{record}}
             <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
             <Types :xxx=" 'type' " :value.sync="record.type"/>
             <Notes @update:value="onUpdateNotes"/>
@@ -16,7 +15,7 @@
     import Types from "@/components/Types.vue";
     import Tags from "@/components/Tags.vue";
     import Notes from "@/components/Notes.vue";
-    import {model} from "@/model";
+    import moneyModel from "@/models/moneyModel";
     const recordList: RecordItem[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
     window.localStorage.setItem('version','1.0.0');
 
@@ -31,7 +30,8 @@
     export default class Money extends Vue {
         name: "Money" | undefined;
         tags: string[] = ['衣服', '食物', '交通', '消费'];
-        recordList= model.fetch();
+        recordList= moneyModel.fetch();
+
         record: RecordItem = {
             tags: [],
             notes: '',
@@ -46,13 +46,13 @@
             this.record.notes = value
         }
         saveRecord(){
-            const record2 = model.clone(this.record);
+            const record2 = moneyModel.clone(this.record);
             record2.createAt = new Date()
             this.recordList.push(record2);
         }
         @Watch('recordList')
         onRecordListChange(){
-            model.save(this.recordList)
+            moneyModel.save(this.recordList)
         }
     }
 </script>

@@ -30,10 +30,14 @@
 
         create() {
             const name = window.prompt('请输入标签');
-            if (name === '') {
+            console.log(this.dataSource)
+            if (name === '' || name ===null) {
                 window.alert('标签不能为空')
             } else if (this.dataSource) {
+                console.log('取消')
                 this.$emit('update:dataSource', [...this.dataSource, name])
+            }else{
+                console.log('取消了')
             }
         }
     }

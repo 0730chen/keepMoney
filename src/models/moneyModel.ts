@@ -1,5 +1,5 @@
-const localStrogeKeyName = 'recordList'
-const model = {
+const localStrogeKeyName = 'moneyModel'
+const moneyModel = {
     clone(data: RecordItem[]|RecordItem){
         return JSON.parse(JSON.stringify(data))
     },
@@ -7,7 +7,7 @@ const model = {
         return JSON.parse(window.localStorage.getItem(localStrogeKeyName) || '[]') as RecordItem[];
     },
     save(data: RecordItem[]) {
-        window.localStorage.setItem('recordList', JSON.stringify(data))
+        window.localStorage.setItem(localStrogeKeyName, JSON.stringify(data))
     }
 }
-export {model}
+export default moneyModel
