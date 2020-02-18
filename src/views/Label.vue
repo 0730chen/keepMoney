@@ -23,7 +23,7 @@
     })
     export default class Label extends Vue {
         name: "Label" | undefined
-        tags = TagsModel.data
+        tags = window.tagList
 
         creteTags() {
             const name = window.prompt('请输入标签名')

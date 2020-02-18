@@ -21,8 +21,7 @@
     import TagsModel from "@/models/TagsModel";
 
     window.localStorage.setItem('version', '1.0.0');
-    const tagList = TagsModel.fetch();
-    console.log(tagList);
+    const tagList = window.tagList;
     @Component({
         components: {
             Notes,
@@ -34,7 +33,7 @@
     export default class Money extends Vue {
         name: "Money" | undefined;
         recordList = moneyModel.fetch();
-        tags = tagList
+        tags = window.tagList
         record: RecordItem = {
             tags: [],
             notes: '',
