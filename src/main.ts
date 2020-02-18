@@ -27,7 +27,9 @@ window.createTag = (name: string) => {
 window.removeTag = (id: string)=>{
   return TagsModel.delete(id);
 };
-
+window.updateTag = (id: string,name: string)=>{
+  TagsModel.update(id,name)
+}
 window.recordList = moneyModel.fetch()
 window.createRecord = (data: RecordItem)=>{
   moneyModel.create(data)

@@ -39,9 +39,9 @@
             }
         }
 
-        updateTag(name: string) {
+        updateTag(id: string,name: string) {
             if (this.tag) {
-                TagsModel.update(this.tag.id, name)
+               window.updateTag(id,name)
             }
         }
 

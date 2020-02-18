@@ -22,7 +22,7 @@ interface Window {
     tagList: Tag[];
     createTag: (name: string) => void;
     removeTag: (id: string) => boolean;
-    updateTag: (id: string, name: string) => void;
+    updateTag: (id: string,name: string) => void;
     recordList: RecordItem[];
     createRecord: (record: RecordItem) => void;
     saveRecord: () => void;
