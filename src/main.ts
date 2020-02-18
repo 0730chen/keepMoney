@@ -7,6 +7,7 @@ import Nav from "@/components/Nav.vue";
 import Layout from "@/components/Layout.vue";
 import Icons from "@/components/Icons.vue";
 import TagsModel from "@/models/TagsModel";
+import moneyModel from "@/models/moneyModel";
 
 Vue.config.productionTip = false;
 Vue.component('Nav', Nav);
@@ -22,6 +23,17 @@ window.createTag = (name: string) => {
     if (status === 'success') {
         window.alert('创建成功')
     }
+}
+window.removeTag = (id: string)=>{
+  return TagsModel.delete(id);
+};
+
+window.recordList = moneyModel.fetch()
+window.createRecord = (data: RecordItem)=>{
+  moneyModel.create(data)
+}
+window.saveRecord = ()=>{
+  moneyModel.save()
 }
 new Vue({
     router,

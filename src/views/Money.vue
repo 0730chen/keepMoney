@@ -17,11 +17,8 @@
     import Types from "@/components/Types.vue";
     import Tags from "@/components/Tags.vue";
     import Notes from "@/components/Notes.vue";
-    import moneyModel from "@/models/moneyModel";
-    import TagsModel from "@/models/TagsModel";
 
     window.localStorage.setItem('version', '1.0.0');
-    const tagList = window.tagList;
     @Component({
         components: {
             Notes,
@@ -32,7 +29,7 @@
     })
     export default class Money extends Vue {
         name: "Money" | undefined;
-        recordList = moneyModel.fetch();
+        recordList = window.recordList
         tags = window.tagList
         record: RecordItem = {
             tags: [],
@@ -50,12 +47,12 @@
         }
 
         saveRecord() {
-           moneyModel.create(this.record)
+           window.createRecord(this.record)
         }
 
         @Watch('recordList')
         onRecordListChange() {
-            moneyModel.save()
+            window.saveRecord();
         }
     }
 </script>

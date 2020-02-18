@@ -44,17 +44,19 @@
                 TagsModel.update(this.tag.id, name)
             }
         }
-        deleteTag(){
+
+        deleteTag() {
             console.log(this.tag)
-            if(this.tag){
-                if(TagsModel.delete(this.tag.id)){
+            if (this.tag) {
+                if (window.removeTag(this.tag.id)) {
                     this.$router.back()
-                }else{
+                } else {
                     window.alert('删除失败')
                 }
             }
         }
-        goBack(){
+
+        goBack() {
             this.$router.back()
         }
     }
