@@ -16,21 +16,20 @@
     import {Component, Vue} from 'vue-property-decorator';
     import TagsModel from "@/models/TagsModel";
     import Buttons from "@/components/Buttons.vue";
-
-    TagsModel.fetch()
+    import store from "@/store/index2";
     @Component({
         components: {Buttons}
     })
     export default class Label extends Vue {
-        name: "Label" | undefined
-        tags = window.tagList
+        name: "Label" | undefined;
+        tags = store.tagList;
 
         creteTags() {
             const name = window.prompt('请输入标签名')
             if (name === '' || name === null) {
                 window.alert('标签名不能为空')
             } else {
-                window.createTag(name)
+                store.createTag(name)
             }
         }
 

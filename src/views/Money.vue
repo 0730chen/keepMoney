@@ -6,7 +6,7 @@
             <div class="note-wrapper">
                 <Notes @update:value="onUpdateNotes" field-name="备注" placeholder="在这里输入备注"/>
             </div>
-            <Tags :data-source.sync="tags" @update:selected="OnSelectedTags"/>
+            <Tags @update:value="onUpdateTags"/>
         </Layout>
     </div>
 </template>
@@ -17,6 +17,7 @@
     import Types from "@/components/Types.vue";
     import Tags from "@/components/Tags.vue";
     import Notes from "@/components/Notes.vue";
+    import store from "@/store/index2";
 
     window.localStorage.setItem('version', '1.0.0');
     @Component({
@@ -29,30 +30,26 @@
     })
     export default class Money extends Vue {
         name: "Money" | undefined;
-        recordList = window.recordList
-        tags = window.tagList
+        recordList = store.recordList
         record: RecordItem = {
             tags: [],
             notes: '',
             type: '-',
             amount: 0,
         };
-
-        OnSelectedTags(tags: string[]) {
-            this.record.tags = tags
+        onUpdateTags(value: string[]) {
+            console.log(value);
+            this.record.tags = value;
         }
+
 
         onUpdateNotes(value: string) {
             this.record.notes = value
         }
 
         saveRecord() {
-           window.createRecord(this.record)
-        }
-
-        @Watch('recordList')
-        onRecordListChange() {
-            window.saveRecord();
+            console.log(this.record);
+            store.createRecord(this.record)
         }
     }
 </script>

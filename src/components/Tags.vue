@@ -4,7 +4,9 @@
             <button @click="create">新增标签</button>
         </div>
         <ul class="items">
-            <li v-for="tag in dataSource" :key="tag.id" :class="{selected:selectedTags.indexOf(tag)>=0}" @click="toggle(tag)">{{tag.name}}</li>
+            <li v-for="tag in tagList" :key="tag.id" :class="{selected:selectedTags.indexOf(tag)>=0}"
+                @click="toggle(tag)">{{tag.name}}
+            </li>
         </ul>
     </div>
 </template>
@@ -12,32 +14,30 @@
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import TagsModel from "@/models/TagsModel";
+    import store from "@/store/index2";
 
     @Component
     export default class Tags extends Vue {
         name: "Tags" | undefined
-        @Prop(Array) readonly dataSource: string[] | undefined
+        tagList = store.fetchTags();
         selectedTags: string[] = [];
 
         toggle(tag: string) {
             const index = this.selectedTags.indexOf(tag);
             if (index >= 0) {
-                this.selectedTags.splice(index, 1)
+                this.selectedTags.splice(index, 1);
             } else {
-                this.selectedTags.push(tag)
+                this.selectedTags.push(tag);
             }
-            this.$emit('update:selected',this.selectedTags)
+            this.$emit('update:value', this.selectedTags)
         }
 
         create() {
             const name = window.prompt('请输入标签');
-            console.log(this.dataSource);
-            if (name === '' || name ===null) {
+            if (name === '' || name === null) {
                 window.alert('标签不能为空')
-            } else if (this.dataSource) {
-                this.$emit('update:dataSource', [...this.dataSource, name])
-            }else{
-                return
+            } else {
+                store.createTag(name)
             }
         }
     }
@@ -56,8 +56,9 @@
         > .items {
             display: flex;
             flex-wrap: wrap;
-            .selected{
-                background:#00acec;
+
+            .selected {
+                background: #00acec;
             }
 
             > li {
