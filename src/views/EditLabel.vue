@@ -4,15 +4,19 @@
             <Icons IconName="left"></Icons>
             <span>编辑标签</span>
         </div>
+        <Notes field-name="标签名" placeholder="请输入标签名"/>
     </Layout>
 </template>
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import TagsModel from "@/models/TagsModel";
+    import Notes from "@/components/Notes.vue";
 
     TagsModel.fetch()
-    @Component
+    @Component({
+        components: {Notes}
+    })
     export default class EditLabel extends Vue {
         name: "EditLabel" | undefined
 

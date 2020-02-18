@@ -1,8 +1,8 @@
 <template>
     <div>
         <label class="notes">
-            <span class="name">备注</span>
-            <input type="text" placeholder="在这里输入备注" v-model="value">
+            <span class="name">{{this.fieldName}}</span>
+            <input type="text" :placeholder="this.placeholder" v-model="value">
         </label>
     </div>
 </template>
@@ -14,7 +14,9 @@
     export default class Notes extends Vue {
         name: "Notes" | undefined;
         value = ''
-        @Prop(Number)xxx: number|undefined
+        @Prop(Number)xxx: number|undefined;
+        @Prop({required:true})fieldName!: string;
+        @Prop()placeholder!: string
         @Watch('value')
         onValueChange(val: string){
             this.$emit('update:value',val)
