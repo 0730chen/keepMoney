@@ -51,14 +51,12 @@
         }
 
         saveRecord() {
-            const record2 = moneyModel.clone(this.record);
-            record2.createAt = new Date()
-            this.recordList.push(record2);
+           moneyModel.create(this.record)
         }
 
         @Watch('recordList')
         onRecordListChange() {
-            moneyModel.save(this.recordList)
+            moneyModel.save()
         }
     }
 </script>
