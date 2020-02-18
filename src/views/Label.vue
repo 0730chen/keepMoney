@@ -30,13 +30,7 @@
             if (name === '' || name === null) {
                 window.alert('标签名不能为空')
             } else {
-                const status = TagsModel.create(name)
-                if(status ==='duplicated'){
-                    window.alert('标签重复')
-                }
-                if(status ==='success'){
-                    window.alert('创建成功')
-                }
+                window.createTag(name)
             }
         }
 

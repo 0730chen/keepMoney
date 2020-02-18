@@ -9,13 +9,22 @@ import Icons from "@/components/Icons.vue";
 import TagsModel from "@/models/TagsModel";
 
 Vue.config.productionTip = false;
-Vue.component('Nav',Nav);
-Vue.component('Layout',Layout);
-Vue.component('Icons',Icons);
+Vue.component('Nav', Nav);
+Vue.component('Layout', Layout);
+Vue.component('Icons', Icons);
 
-window.tagList = TagsModel.fetch()
+window.tagList = TagsModel.fetch();
+window.createTag = (name: string) => {
+    const status = TagsModel.create(name)
+    if (status === 'duplicated') {
+        window.alert('标签重复')
+    }
+    if (status === 'success') {
+        window.alert('创建成功')
+    }
+}
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')
