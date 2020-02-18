@@ -7,7 +7,7 @@
                 </router-link>
             </div>
             <div class="newTags-wrapper">
-                <button class="newTags" @click="creteTags">新增标签</button>
+                <Buttons @click="creteTags">新建标签</Buttons>
             </div>
         </Layout>
 </template>
@@ -15,9 +15,12 @@
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
     import TagsModel from "@/models/TagsModel";
+    import Buttons from "@/components/Buttons.vue";
 
     TagsModel.fetch()
-    @Component
+    @Component({
+        components: {Buttons}
+    })
     export default class Label extends Vue {
         name: "Label" | undefined
         tags = TagsModel.data
@@ -62,18 +65,10 @@
             }
         }
     }
-
-    .newTags {
-        background: #767676;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        height: 40px;
-        padding: 0 16px;
-
-        &-wrapper {
-            text-align: center;
-            margin-top: 44-16px;
-        }
+    .newTags-wrapper {
+        text-align: center;
+        margin-top: 44-16px;
     }
+
+
 </style>

@@ -2,7 +2,7 @@
     <div>
         <label class="notes">
             <span class="name">{{this.fieldName}}</span>
-            <input type="text" :placeholder="this.placeholder" v-model="value">
+            <input type="text" :placeholder="placeholder" v-model="value">
         </label>
     </div>
 </template>
