@@ -18,10 +18,11 @@
     import Tags from "@/components/Tags.vue";
     import Notes from "@/components/Notes.vue";
     import moneyModel from "@/models/moneyModel";
+    import TagsModel from "@/models/TagsModel";
 
-    const recordList: RecordItem[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
     window.localStorage.setItem('version', '1.0.0');
-
+    const tagList = TagsModel.fetch();
+    console.log(tagList);
     @Component({
         components: {
             Notes,
@@ -32,9 +33,8 @@
     })
     export default class Money extends Vue {
         name: "Money" | undefined;
-        tags: string[] = ['衣服', '食物', '交通', '消费'];
         recordList = moneyModel.fetch();
-
+        tags = tagList
         record: RecordItem = {
             tags: [],
             notes: '',
@@ -67,8 +67,9 @@
         display: flex;
         flex-direction: column-reverse;
     }
-    .note-wrapper{
-        padding :12px 0;
+
+    .note-wrapper {
+        padding: 12px 0;
     }
 </style>
 <style lang="scss" scoped>

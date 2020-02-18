@@ -47,7 +47,11 @@
         deleteTag(){
             console.log(this.tag)
             if(this.tag){
-                TagsModel.delete(this.tag.id)
+                if(TagsModel.delete(this.tag.id)){
+                    this.$router.back()
+                }else{
+                    window.alert('删除失败')
+                }
             }
         }
         goBack(){
