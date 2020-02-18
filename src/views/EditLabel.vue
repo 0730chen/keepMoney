@@ -5,10 +5,10 @@
             <span class="title">编辑标签</span>
         </div>
         <div class="Note-wrapper">
-            <Notes field-name="标签名" placeholder="请输入标签名"/>
+            <Notes :value="tag.name" field-name="标签名" placeholder="请输入标签名"/>
         </div>
         <div class="button-wrapper">
-        <Buttons>删除标签</Buttons>
+            <Buttons>删除标签</Buttons>
         </div>
     </Layout>
 </template>
@@ -25,14 +25,15 @@
     })
     export default class EditLabel extends Vue {
         name: "EditLabel" | undefined
-        @Prop() xxx!: string
+        @Prop() xxx!: string;
+        tag?: { id: string; name: string } = undefined
 
         created(): void {
             const id = this.$route.params.id
             const tags = TagsModel.data
             const tag = tags.filter(t => t.id === id)[0]
             if (tag) {
-                return
+                this.tag = tag
             } else {
                 this.$router.replace('/404')
             }
@@ -58,11 +59,13 @@
 
 
     }
+
     .Note-wrapper {
         margin-top: 8px;
         background: white;
     }
-    .button-wrapper{
+
+    .button-wrapper {
         text-align: center;
         padding: 16px;
         margin-top: 44-16px;
