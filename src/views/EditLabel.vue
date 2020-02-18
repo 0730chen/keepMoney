@@ -1,14 +1,14 @@
 <template>
     <Layout>
         <div class="navBar">
-            <Icons class="leftIcon" IconName="left"></Icons>
+            <Icons class="leftIcon" IconName="left" @click="goBack"></Icons>
             <span class="title">编辑标签</span>
         </div>
         <div class="Note-wrapper">
-            <Notes :value="tag.name" field-name="标签名" placeholder="请输入标签名"/>
+            <Notes :value="tag.name" field-name="标签名" placeholder="请输入标签名" @update:value="updateTag"/>
         </div>
         <div class="button-wrapper">
-            <Buttons>删除标签</Buttons>
+            <Buttons @click="deleteTag">删除标签</Buttons>
         </div>
     </Layout>
 </template>
@@ -37,6 +37,21 @@
             } else {
                 this.$router.replace('/404')
             }
+        }
+
+        updateTag(name: string) {
+            if (this.tag) {
+                TagsModel.update(this.tag.id, name)
+            }
+        }
+        deleteTag(){
+            console.log(this.tag)
+            if(this.tag){
+                TagsModel.delete(this.tag.id)
+            }
+        }
+        goBack(){
+            this.$router.back()
         }
     }
 </script>
