@@ -51,6 +51,7 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column-reverse;
+        background: white;
 
         > .items {
             display: flex;

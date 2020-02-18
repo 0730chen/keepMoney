@@ -14,12 +14,13 @@
     export default class Notes extends Vue {
         name: "Notes" | undefined;
         value = ''
-        @Prop(Number)xxx: number|undefined;
-        @Prop({required:true})fieldName!: string;
-        @Prop()placeholder!: string
+        @Prop(Number) xxx: number | undefined;
+        @Prop({required: true}) fieldName!: string;
+        @Prop() placeholder!: string
+
         @Watch('value')
-        onValueChange(val: string){
-            this.$emit('update:value',val)
+        onValueChange(val: string) {
+            this.$emit('update:value', val)
         }
     }
 </script>
@@ -27,7 +28,6 @@
 <style lang="scss" scoped>
     .notes {
         font-size: 14px;
-        background: #f5f5f5;
         padding-left: 16px;
         display: flex;
         align-items: center;
@@ -41,7 +41,7 @@
             background: transparent;
             border: none;
             padding-right: 16px;
-            height: 64px;
+            height: 40px;
         }
     }
 </style>
