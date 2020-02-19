@@ -27,11 +27,6 @@
             Types,
             NumberPad
         },
-        computed:{
-            recordList(){
-                return this.$store.state.count
-            }
-        }
     })
     export default class Money extends Vue {
         name: "Money" | undefined;
@@ -42,6 +37,9 @@
             type: '-',
             amount: 0,
         };
+        get  recordList(){
+            return this.$store.state.count
+        }
         created(): void {
             this.$store.commit('initRecordList')
         }

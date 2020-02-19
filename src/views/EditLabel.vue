@@ -27,7 +27,6 @@
         name: "EditLabel" | undefined
         @Prop() xxx!: string;
         tag?: Tag = this.$store.state.Tag;
-
         created(): void {
             this.$store.commit('findTag', this.$route.params.id);
             this.tag = this.$store.state.Tag;

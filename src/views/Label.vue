@@ -20,14 +20,12 @@
     import CreateTag from "@/mixins/CreateTag";
     @Component({
         components: {Buttons},
-        computed:{
-            tags(){
-                return this.$store.state.TagList
-            }
-        }
     })
     export default class Label extends mixins(CreateTag) {
         name: "Label" | undefined;
+        get tags(){
+            return this.$store.state.TagList
+        }
         created(): void {
             this.$store.commit('initTagList')
         }

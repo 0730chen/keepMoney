@@ -16,15 +16,13 @@
     import {mixins} from "vue-class-component";
     import { CreateTag } from '@/mixins/CreateTag';
     @Component({
-        computed:{
-            tagList(){
-                return this.$store.state.TagList
-            }
-        }
     })
     export default class Tags extends mixins(CreateTag) {
         name: "Tags" | undefined
         selectedTags: string[] = [];
+        get  tagList(){
+            return this.$store.state.TagList
+        }
         created(): void {
             this.$store.commit('initTagList')
         }
