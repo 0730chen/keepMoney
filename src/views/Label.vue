@@ -7,7 +7,7 @@
                 </router-link>
             </div>
             <div class="newTags-wrapper">
-                <Buttons @click="creteTags">新建标签</Buttons>
+                <Buttons @click="createTag">新建标签</Buttons>
             </div>
         </Layout>
 </template>
@@ -15,6 +15,9 @@
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
     import Buttons from "@/components/Buttons.vue";
+    import createTag from "@/mixins/CreateTag";
+    import {mixins} from "vue-class-component";
+    import CreateTag from "@/mixins/CreateTag";
     @Component({
         components: {Buttons},
         computed:{
@@ -23,22 +26,11 @@
             }
         }
     })
-    export default class Label extends Vue {
+    export default class Label extends mixins(CreateTag) {
         name: "Label" | undefined;
         created(): void {
             this.$store.commit('initTagList')
         }
-
-        creteTags() {
-            const name = window.prompt('请输入标签名')
-            if (name === '' || name === null) {
-                window.alert('标签名不能为空')
-            } else {
-                this.$store.commit('createTag',name);
-                this.$store.commit('saveTag')
-            }
-        }
-
     }
 </script>
 

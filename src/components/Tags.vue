@@ -1,7 +1,7 @@
 <template>
     <div class="tags">
         <div class="new">
-            <button @click="create">新增标签</button>
+            <button @click="createTag">新增标签</button>
         </div>
         <ul class="items">
             <li v-for="tag in tagList" :key="tag.id" :class="{selected:selectedTags.indexOf(tag)>=0}"
@@ -13,6 +13,8 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
+    import {mixins} from "vue-class-component";
+    import { CreateTag } from '@/mixins/CreateTag';
     @Component({
         computed:{
             tagList(){
@@ -20,10 +22,9 @@
             }
         }
     })
-    export default class Tags extends Vue {
+    export default class Tags extends mixins(CreateTag) {
         name: "Tags" | undefined
         selectedTags: string[] = [];
-
         created(): void {
             this.$store.commit('initTagList')
         }
@@ -36,16 +37,6 @@
                 this.selectedTags.push(tag);
             }
             this.$emit('update:value', this.selectedTags)
-        }
-
-        create() {
-            const name = window.prompt('请输入标签');
-            if (name === '' || name === null) {
-                window.alert('标签不能为空')
-            } else {
-                this.$store.commit('createTag',name);
-                this.$store.commit('saveTag')
-            }
         }
     }
 </script>
