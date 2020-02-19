@@ -26,10 +26,14 @@
     export default class EditLabel extends Vue {
         name: "EditLabel" | undefined
         @Prop() xxx!: string;
-        tag?: Tag = this.$store.state.Tag;
+
+        get tag() {
+            return this.$store.state.Tag
+        }
+
         created(): void {
+            this.$store.commit('initTagList');
             this.$store.commit('findTag', this.$route.params.id);
-            this.tag = this.$store.state.Tag;
             if (!this.tag) {
                 this.$router.replace('/404')
             }
@@ -46,18 +50,13 @@
         deleteTag() {
             if (this.tag) {
                 const id = this.tag.id
-                if (this.$store.commit('deleteTag'),id) {
+                if (this.$store.commit('deleteTag'), id) {
                     window.alert('删除成功')
                     this.$store.commit('saveTag')
                     this.$router.back()
                 } else {
                     window.alert('删除失败')
                 }
-                // if (store.removeTag(this.tag.id)) {
-                //     this.$router.back()
-                // } else {
-                //     window.alert('删除失败')
-                // }
             }
         }
 
