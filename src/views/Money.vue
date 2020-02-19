@@ -17,7 +17,6 @@
     import Types from "@/components/Types.vue";
     import Tags from "@/components/Tags.vue";
     import Notes from "@/components/Notes.vue";
-    import oldStore from "@/store/index2";
     import store from "@/store/index";
 
     window.localStorage.setItem('version', '1.0.0');
@@ -29,20 +28,24 @@
             NumberPad
         },
         computed:{
-            count(){
-                return store.state.count
+            recordList(){
+                return this.$store.state.count
             }
         }
     })
     export default class Money extends Vue {
         name: "Money" | undefined;
-        recordList = oldStore.recordList
+        // recordList = store.state.recordList
         record: RecordItem = {
             tags: [],
             notes: '',
             type: '-',
             amount: 0,
         };
+        created(): void {
+            this.$store.commit('initRecordList')
+        }
+
         onUpdateTags(value: string[]) {
             console.log(value);
             this.record.tags = value;
@@ -54,8 +57,8 @@
         }
 
         saveRecord() {
-            console.log(this.record);
-            oldStore.createRecord(this.record)
+           this.$store.commit('createRecord',this.record)
+            this.$store.commit('saveRecords')
         }
     }
 </script>

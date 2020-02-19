@@ -14,12 +14,16 @@
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import TagsModel from "@/models/TagsModel";
-    import store from "@/store/index2";
-
-    @Component
+    @Component({
+        computed:{
+            tagList(){
+                return []
+            }
+        }
+    })
     export default class Tags extends Vue {
         name: "Tags" | undefined
-        tagList = store.fetchTags();
+        // tagList = store.fetchTags();
         selectedTags: string[] = [];
 
         toggle(tag: string) {
@@ -37,7 +41,7 @@
             if (name === '' || name === null) {
                 window.alert('标签不能为空')
             } else {
-                store.createTag(name)
+                // store.createTag(name)
             }
         }
     }

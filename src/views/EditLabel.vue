@@ -18,7 +18,6 @@
     import TagsModel from "@/models/TagsModel";
     import Notes from "@/components/Notes.vue";
     import Buttons from "@/components/Buttons.vue";
-    import store from "@/store/index2";
     TagsModel.fetch();
     @Component({
         components: {Buttons, Notes}
@@ -29,7 +28,7 @@
         tag?: Tag = undefined
 
         created(): void {
-           this.tag = store.findTag(this.$route.params.id);
+           // this.tag = store.findTag(this.$route.params.id);
             if (!this.tag) {
                 this.$router.replace('/404')
             }
@@ -37,17 +36,17 @@
 
         updateTag(name: string) {
             if (this.tag) {
-               store.updateTag(this.tag.id,name)
+               // store.updateTag(this.tag.id,name)
             }
         }
 
         deleteTag() {
             if (this.tag) {
-                if (store.removeTag(this.tag.id)) {
-                    this.$router.back()
-                } else {
-                    window.alert('删除失败')
-                }
+                // if (store.removeTag(this.tag.id)) {
+                //     this.$router.back()
+                // } else {
+                //     window.alert('删除失败')
+                // }
             }
         }
 
