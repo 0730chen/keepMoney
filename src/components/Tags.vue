@@ -13,18 +13,20 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
-    import TagsModel from "@/models/TagsModel";
     @Component({
         computed:{
             tagList(){
-                return []
+                return this.$store.state.TagList
             }
         }
     })
     export default class Tags extends Vue {
         name: "Tags" | undefined
-        // tagList = store.fetchTags();
         selectedTags: string[] = [];
+
+        created(): void {
+            this.$store.commit('initTagList')
+        }
 
         toggle(tag: string) {
             const index = this.selectedTags.indexOf(tag);
@@ -41,7 +43,8 @@
             if (name === '' || name === null) {
                 window.alert('标签不能为空')
             } else {
-                // store.createTag(name)
+                this.$store.commit('createTag',name);
+                this.$store.commit('saveTag')
             }
         }
     }

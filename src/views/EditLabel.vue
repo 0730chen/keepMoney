@@ -18,6 +18,7 @@
     import TagsModel from "@/models/TagsModel";
     import Notes from "@/components/Notes.vue";
     import Buttons from "@/components/Buttons.vue";
+
     TagsModel.fetch();
     @Component({
         components: {Buttons, Notes}
@@ -25,10 +26,11 @@
     export default class EditLabel extends Vue {
         name: "EditLabel" | undefined
         @Prop() xxx!: string;
-        tag?: Tag = undefined
+        tag?: Tag = this.$store.state.Tag;
 
         created(): void {
-           // this.tag = store.findTag(this.$route.params.id);
+            this.$store.commit('findTag', this.$route.params.id);
+            this.tag = this.$store.state.Tag;
             if (!this.tag) {
                 this.$router.replace('/404')
             }
@@ -36,12 +38,22 @@
 
         updateTag(name: string) {
             if (this.tag) {
-               // store.updateTag(this.tag.id,name)
+                const id = this.tag.id
+                this.$store.commit('updateTag', {id, name})
+                this.$store.commit('saveTag')
             }
         }
 
         deleteTag() {
             if (this.tag) {
+                const id = this.tag.id
+                if (this.$store.commit('deleteTag'),id) {
+                    window.alert('删除成功')
+                    this.$store.commit('saveTag')
+                    this.$router.back()
+                } else {
+                    window.alert('删除失败')
+                }
                 // if (store.removeTag(this.tag.id)) {
                 //     this.$router.back()
                 // } else {

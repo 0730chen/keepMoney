@@ -14,21 +14,28 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
-    import TagsModel from "@/models/TagsModel";
     import Buttons from "@/components/Buttons.vue";
     @Component({
-        components: {Buttons}
+        components: {Buttons},
+        computed:{
+            tags(){
+                return this.$store.state.TagList
+            }
+        }
     })
     export default class Label extends Vue {
         name: "Label" | undefined;
-        // tags = store.tagList;
+        created(): void {
+            this.$store.commit('initTagList')
+        }
 
         creteTags() {
             const name = window.prompt('请输入标签名')
             if (name === '' || name === null) {
                 window.alert('标签名不能为空')
             } else {
-                // store.createTag(name)
+                this.$store.commit('createTag',name);
+                this.$store.commit('saveTag')
             }
         }
 
