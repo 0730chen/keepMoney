@@ -9,10 +9,10 @@ export class CreateTag extends Vue {
         if (name === '' || name === null) {
             window.alert('标签不能为空')
         } else {
-            this.$store.commit('createTag',name);
+            this.$store.commit('createTag', name);
             this.$store.commit('saveTag')
         }
     }
 }
 
-export default  CreateTag
+export default CreateTag

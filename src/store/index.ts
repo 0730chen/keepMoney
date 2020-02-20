@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         recordList: [] as RecordItem[],
         TagList: [] as Tag[],
-        Tag: {id:'99',name:'请添加标签'},
+        Tag: {id: '99', name: '请添加标签'},
         localStorageKeyRecord: 'recordList',
         localStorageKeyTag: 'tagList'
     },
@@ -41,37 +41,37 @@ export default new Vuex.Store({
         findTag(state, id) {
             state.Tag = state.TagList.filter(t => t.id === id)[0]
         },
-        updateTag(state,obj){
-          const idList = state.TagList.map(item => item.id);
-          const {id,name} = obj
-          if (idList.indexOf(id) >= 0) {
-            const names = state.TagList.map(item => item.name);
-            if (names.indexOf(name) >= 0) {
-              return 'duplicated';
+        updateTag(state, obj) {
+            const idList = state.TagList.map(item => item.id);
+            const {id, name} = obj
+            if (idList.indexOf(id) >= 0) {
+                const names = state.TagList.map(item => item.name);
+                if (names.indexOf(name) >= 0) {
+                    return 'duplicated';
+                } else {
+                    const tag = state.TagList.filter(item => item.id === id)[0];
+                    tag.name = name;
+                    return 'success';
+                }
             } else {
-              const tag = state.TagList.filter(item => item.id === id)[0];
-              tag.name = name;
-              return 'success';
+                return 'not found';
             }
-          } else {
-            return 'not found';
-          }
         },
 
         saveTag(state) {
             window.localStorage.setItem(state.localStorageKeyTag, JSON.stringify(state.TagList));
         },
-        deleteTag(state,id){
+        deleteTag(state, id) {
             let index = -1;
             for (let i = 0; i < state.TagList.length; i++) {
-              if (state.TagList[i].id === id) {
-                index = i;
-                break;
-              }
+                if (state.TagList[i].id === id) {
+                    index = i;
+                    break;
+                }
             }
             state.TagList.splice(index, 1);
             return true;
-          },
+        },
     },
     actions: {},
     modules: {}

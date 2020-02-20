@@ -1,15 +1,15 @@
 <template>
-        <Layout>
-            <div class="tags">
-                <router-link v-for = "item in tags" :key="item.id" :to="`/label/edit/${item.id}`" class="tag">
-                    <span>{{item.name}}</span>
-                    <Icons IconName="right"/>
-                </router-link>
-            </div>
-            <div class="newTags-wrapper">
-                <Buttons @click="createTag">新建标签</Buttons>
-            </div>
-        </Layout>
+    <Layout>
+        <div class="tags">
+            <router-link v-for="item in tags" :key="item.id" :to="`/label/edit/${item.id}`" class="tag">
+                <span>{{item.name}}</span>
+                <Icons IconName="right"/>
+            </router-link>
+        </div>
+        <div class="newTags-wrapper">
+            <Buttons @click="createTag">新建标签</Buttons>
+        </div>
+    </Layout>
 </template>
 
 <script lang="ts">
@@ -18,14 +18,17 @@
     import createTag from "@/mixins/CreateTag";
     import {mixins} from "vue-class-component";
     import CreateTag from "@/mixins/CreateTag";
+
     @Component({
         components: {Buttons},
     })
     export default class Label extends mixins(CreateTag) {
         name: "Label" | undefined;
-        get tags(){
+
+        get tags() {
             return this.$store.state.TagList
         }
+
         created(): void {
             this.$store.commit('initTagList')
         }
@@ -54,6 +57,7 @@
             }
         }
     }
+
     .newTags-wrapper {
         text-align: center;
         margin-top: 44-16px;

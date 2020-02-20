@@ -37,9 +37,11 @@
             type: '-',
             amount: 0,
         };
-        get  recordList(){
+
+        get recordList() {
             return this.$store.state.count
         }
+
         created(): void {
             this.$store.commit('initRecordList')
         }
@@ -55,7 +57,7 @@
         }
 
         saveRecord() {
-           this.$store.commit('createRecord',this.record)
+            this.$store.commit('createRecord', this.record)
             this.$store.commit('saveRecords')
         }
     }

@@ -14,15 +14,17 @@
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import {mixins} from "vue-class-component";
-    import { CreateTag } from '@/mixins/CreateTag';
-    @Component({
-    })
+    import {CreateTag} from '@/mixins/CreateTag';
+
+    @Component({})
     export default class Tags extends mixins(CreateTag) {
         name: "Tags" | undefined
         selectedTags: string[] = [];
-        get  tagList(){
+
+        get tagList() {
             return this.$store.state.TagList
         }
+
         created(): void {
             this.$store.commit('initTagList')
         }
