@@ -2,7 +2,7 @@
     <div>
         <Layout class-prefix="layout">
             <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
-<!--            <Types class-prefix="money" :value.sync="record.type"/>-->
+            <!--            <Types class-prefix="money" :value.sync="record.type"/>-->
             <Tabs class="x" :value.sync="record.type" class-prefix="money" :data-source="typeList"></Tabs>
             <div class="note-wrapper">
                 <Notes @update:value="onUpdateNotes" field-name="备注" placeholder="在这里输入备注"/>

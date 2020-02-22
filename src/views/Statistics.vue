@@ -4,11 +4,12 @@
         <Tabs :data-source="intervalList" :value.sync="interval" class-prefix="interval"></Tabs>
         <ol>
             <li v-for="(group,index) in result" :key="index">
-                <h3>{{group.title}}</h3>
+                <h3 class="title">{{group.title}}</h3>
                 <ol>
-                    <li v-for="item in group.items" :key="item.id">
-                        {{item.amount}}
-                        {{item.createAt}}
+                    <li v-for="item in group.items" :key="item.id" class="record">
+                        <span>{{tagString(item.tags)}}</span>
+                        <span class="notes">{{item.notes}}</span>
+                        <span>￥{{item.amount}}</span>
                     </li>
                 </ol>
             </li>
@@ -32,6 +33,10 @@
         interval = 'day';
         intervalList = intervalList
         typeList = typeList
+
+        tagString(tags: Tag[]) {
+            return tags.length === 0 ? '无' : tags.join(',')
+        }
 
         get recordList() {
             return (this.$store.state as RootState).recordList
@@ -58,6 +63,29 @@
 </script>
 
 <style lang="scss" scoped>
+    %item {
+        padding: 8px 16px;
+        line-height: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .title {
+        @extend %item
+    }
+
+    .record {
+        @extend %item;
+        background: white;
+    }
+
+    .notes {
+        margin-right: auto;
+        margin-left: 8px;
+        color: #999999;
+    }
+
     ::v-deep .type-item {
         background: white;
 
