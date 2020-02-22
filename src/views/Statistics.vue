@@ -25,15 +25,6 @@
         interval = 'day';
         intervalList = intervalList
         typeList = typeList
-        // intervalList = [
-        //     {text: '按天', value: 'day'},
-        //     {text: '按周', value: 'week'},
-        //     {text: '按月', value: 'month'}
-        // ];
-        // typeList = [
-        //     {text: '支出', value: '-'},
-        //     {text: '收入', value: '+'},
-        // ]
     }
 </script>
 
@@ -48,5 +39,8 @@
                 display: none;
             }
         }
+    }
+    ::v-deep li.interval-item{
+        height: 48px;
     }
 </style>
