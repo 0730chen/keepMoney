@@ -2,13 +2,13 @@ import clone from "@/lib/clone";
 
 const localStrogeKeyName = 'moneyModel'
 const moneyModel = {
-    data:[] as RecordItem[],
-    clone(data: RecordItem[]|RecordItem){
+    data: [] as RecordItem[],
+    clone(data: RecordItem[] | RecordItem) {
         return JSON.parse(JSON.stringify(data))
     },
-    create(record: RecordItem){
+    create(record: RecordItem) {
         const record2: RecordItem = clone(record)
-        record2.createAt = new Date()
+        record2.createAt = new Date().toISOString()
         this.data.push(record2);
         this.save()
     },

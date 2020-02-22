@@ -2,10 +2,17 @@
     <Layout>
         <Tabs class="x" :value.sync="type" class-prefix="type" :data-source="typeList"></Tabs>
         <Tabs :data-source="intervalList" :value.sync="interval" class-prefix="interval"></Tabs>
-        type:{{type}}
-        <br/>
-        interval:{{interval}}
-
+        <ol>
+            <li v-for="(group,index) in result" :key="index">
+                <h3>{{group.title}}</h3>
+                <ol>
+                    <li v-for="item in group.items" :key="item.id">
+                        {{item.amount}}
+                        {{item.createAt}}
+                    </li>
+                </ol>
+            </li>
+        </ol>
     </Layout>
 </template>
 
@@ -25,6 +32,28 @@
         interval = 'day';
         intervalList = intervalList
         typeList = typeList
+
+        get recordList() {
+            return (this.$store.state as RootState).recordList
+        }
+
+        get result() {
+            const {recordList} = this
+            type HashTableValue = { title: string; items: RecordItem[] }
+            const hashTable: { [key: string]: HashTableValue } = {}
+            for (let i = 0; i < recordList.length; i++) {
+                const [data, time] = recordList[i].createAt!.split('T')
+                console.log(data)
+                hashTable[data] = hashTable[data] || {title: data, items: []};
+                hashTable[data].items.push(recordList[i])
+            }
+            console.log(hashTable)
+            return hashTable
+        }
+
+        created(): void {
+            this.$store.commit('initRecordList')
+        }
     }
 </script>
 
@@ -40,7 +69,8 @@
             }
         }
     }
-    ::v-deep li.interval-item{
+
+    ::v-deep li.interval-item {
         height: 48px;
     }
 </style>
