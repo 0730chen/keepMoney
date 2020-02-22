@@ -24,6 +24,7 @@
     import intervalList from "@/constant/intervalList";
     import typeList from "@/constant/typeList";
     import dayjs from "dayjs";
+    import clone from "@/lib/clone";
 
     @Component({
         components: {Tabs, Types}
@@ -63,15 +64,10 @@
         get result() {
             const {recordList} = this
             type HashTableValue = { title: string; items: RecordItem[] }
-            const hashTable: { [key: string]: HashTableValue } = {}
-            for (let i = 0; i < recordList.length; i++) {
-                const [data, time] = recordList[i].createAt!.split('T')
-                console.log(data)
-                hashTable[data] = hashTable[data] || {title: data, items: []};
-                hashTable[data].items.push(recordList[i])
-            }
-            console.log(hashTable)
-            return hashTable
+            const hashTable: { title: string; items: RecordItem[] }[] = []
+            const newList = clone(recordList).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+
+            return []
         }
 
         created(): void {
