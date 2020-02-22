@@ -2,7 +2,8 @@
     <div>
         <Layout class-prefix="layout">
             <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
-            <Types class-prefix="money" :value.sync="record.type"/>
+<!--            <Types class-prefix="money" :value.sync="record.type"/>-->
+            <Tabs class="x" :value.sync="record.type" class-prefix="money" :data-source="typeList"></Tabs>
             <div class="note-wrapper">
                 <Notes @update:value="onUpdateNotes" field-name="备注" placeholder="在这里输入备注"/>
             </div>
@@ -17,7 +18,8 @@
     import Types from "@/components/Types.vue";
     import Tags from "@/components/Tags.vue";
     import Notes from "@/components/Notes.vue";
-    import store from "@/store/index";
+    import typeList from "@/constant/typeList";
+    import Tabs from "@/components/Tabs.vue";
 
     window.localStorage.setItem('version', '1.0.0');
     @Component({
@@ -25,12 +27,13 @@
             Notes,
             Tags,
             Types,
-            NumberPad
+            NumberPad,
+            Tabs
         },
     })
     export default class Money extends Vue {
         name: "Money" | undefined;
-        // recordList = store.state.recordList
+        typeList = typeList
         record: RecordItem = {
             tags: [],
             notes: '',

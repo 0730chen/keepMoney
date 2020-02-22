@@ -13,6 +13,8 @@
     import {Component, Vue} from 'vue-property-decorator';
     import Types from "@/components/Types.vue";
     import Tabs from "@/components/Tabs.vue";
+    import intervalList from "@/constant/intervalList";
+    import typeList from "@/constant/typeList";
 
     @Component({
         components: {Tabs, Types}
@@ -21,15 +23,17 @@
         name: "Statistics" | undefined
         type = '-';
         interval = 'day';
-        intervalList = [
-            {text: '按天', value: 'day'},
-            {text: '按周', value: 'week'},
-            {text: '按月', value: 'month'}
-        ];
-        typeList = [
-            {text: '支出', value: '-'},
-            {text: '收入', value: '+'},
-        ]
+        intervalList = intervalList
+        typeList = typeList
+        // intervalList = [
+        //     {text: '按天', value: 'day'},
+        //     {text: '按周', value: 'week'},
+        //     {text: '按月', value: 'month'}
+        // ];
+        // typeList = [
+        //     {text: '支出', value: '-'},
+        //     {text: '收入', value: '+'},
+        // ]
     }
 </script>
 
