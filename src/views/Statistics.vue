@@ -1,9 +1,8 @@
 <template>
     <Layout>
         <Tabs class="x" :value.sync="type" class-prefix="type" :data-source="typeList"></Tabs>
-        <Tabs :data-source="intervalList" :value.sync="interval" class-prefix="interval"></Tabs>
         <ol>
-            <li v-for="(group,index) in result" :key="index">
+            <li v-for="(group,index) in groupedList" :key="index">
                 <h3 class="title">{{beautify(group.title)}}</h3>
                 <ol>
                     <li v-for="item in group.items" :key="item.id" class="record">
@@ -21,7 +20,6 @@
     import {Component, Vue} from 'vue-property-decorator';
     import Types from "@/components/Types.vue";
     import Tabs from "@/components/Tabs.vue";
-    import intervalList from "@/constant/intervalList";
     import typeList from "@/constant/typeList";
     import dayjs from "dayjs";
     import clone from "@/lib/clone";
@@ -33,7 +31,6 @@
         name: "Statistics" | undefined
         type = '-';
         interval = 'day';
-        intervalList = intervalList
         typeList = typeList
 
         beautify(string: string) {
@@ -61,13 +58,33 @@
             return (this.$store.state as RootState).recordList
         }
 
-        get result() {
+        get groupedList() {
             const {recordList} = this
+            if (recordList.length === 0) {
+                return []
+            }
             type HashTableValue = { title: string; items: RecordItem[] }
             const hashTable: { title: string; items: RecordItem[] }[] = []
             const newList = clone(recordList).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
-
-            return []
+            type Result = { title: string; total?: number; items: RecordItem[] }[]
+            const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+            for (let i = 1; i < newList.length; i++) {
+                const current = newList[i];
+                const last = result[result.length - 1];
+                if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
+                    last.items.push(current);
+                } else {
+                    result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]});
+                }
+            }
+            result.map(group => {
+                group.total = group.items.reduce((sum, item) => {
+                    console.log(sum);
+                    console.log(item);
+                    return sum + item.amount;
+                }, 0);
+            });
+            return result
         }
 
         created(): void {
@@ -101,10 +118,11 @@
     }
 
     ::v-deep .type-item {
-        background: white;
+        background: #c4c4c4;
 
         &.selected {
-            background: #c4c4c4;
+
+            background: white;
 
             &::after {
                 display: none;
