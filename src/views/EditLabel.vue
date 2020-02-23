@@ -71,7 +71,7 @@
         display: flex;
         flex-direction: row;
         font-size: 16px;
-        background: white;
+        background: rgb(249, 219, 99);
         padding: 16px 14px;
 
         > .title {
