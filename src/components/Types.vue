@@ -1,7 +1,10 @@
 <template>
     <div>
         <ul class="types">
-            <li :class="{[classPrefix+`-item`]:classPrefix,selected:value ==='-'}" @click="SelectedTypes('-')">支出</li>
+            <li :class="{[classPrefix+`-item`]:classPrefix,selected:value ==='-'}" @click="SelectedTypes('-')">
+                <Icons IconName="money"/>
+                支出
+            </li>
             <li :class="{[classPrefix+`-item`]:classPrefix,selected:value ==='+'}" @click="SelectedTypes('+')">收入</li>
         </ul>
     </div>
@@ -28,11 +31,10 @@
 
 <style lang="scss" scoped>
     .types {
-        background: #c4c4c4;
+        border: 1px solid black;
         display: flex;
         text-align: center;
         font-size: 24px;
-
         > li {
             width: 50%;
             display: flex;

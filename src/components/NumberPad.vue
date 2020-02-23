@@ -13,7 +13,7 @@
             <button @click="inputContent">7</button>
             <button @click="inputContent">8</button>
             <button @click="inputContent">9</button>
-            <button class="ok" @click="ok">OK</button>
+            <button class="ok" @click="ok">记录</button>
             <button class="zero" @click="inputContent">0</button>
             <button @click="inputContent">.</button>
         </div>
@@ -66,7 +66,6 @@
             this.$emit('update:value', parseFloat(this.output));
             this.$emit('submit', parseFloat(this.output));
             this.output = '0';
-            window.alert('创建成功')
         }
     }
 </script>
@@ -103,7 +102,7 @@
                     width: 25*2%;
                 }
 
-                $bg: #f2f2f2;
+                $bg: rgb(249, 219, 99);
 
                 &:nth-child(1) {
                     background: $bg;

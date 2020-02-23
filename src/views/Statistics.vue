@@ -114,6 +114,10 @@
         align-items: center;
     }
 
+    .total {
+        color: red;
+    }
+
     .noResult {
         font-weight: 1000;
         text-align: center;
@@ -136,7 +140,7 @@
     }
 
     ::v-deep .type-item {
-        background: #c4c4c4;
+        background: rgb(249, 219, 99);
 
         &.selected {
 

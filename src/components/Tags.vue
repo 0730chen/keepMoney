@@ -56,7 +56,7 @@
             flex-wrap: wrap;
 
             .selected {
-                background: #00acec;
+                background: rgb(249, 219, 99);
             }
 
             > li {

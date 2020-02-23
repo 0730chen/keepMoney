@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-wrapper"  :class="classPrefix && `${classPrefix}-wrapper`">
+    <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
         <div class="content" :class="classPrefix && `${classPrefix}-content`   ">
             <slot/>
         </div>
@@ -8,19 +8,18 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop,Vue} from 'vue-property-decorator';
+    import {Component, Prop, Vue} from 'vue-property-decorator';
 
     @Component
     export default class Layout extends Vue {
         name: "Layout" | undefined
-        @Prop()classPrefix: string | undefined
+        @Prop() classPrefix: string | undefined
     }
 </script>
 
 <style lang="scss" scoped>
     .layout-wrapper {
         display: flex;
-        border: 1px solid green;
         flex-direction: column;
         height: 100vh;
     }
