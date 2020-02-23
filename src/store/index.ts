@@ -18,6 +18,9 @@ export default new Vuex.Store({
         },
         initTagList(state) {
             state.TagList = JSON.parse(window.localStorage.getItem(state.localStorageKeyTag) || '[]') as Tag[];
+            if (state.TagList.length === 0) {
+                state.TagList = [{id: '0', name: '衣服'}, {id: '1', name: '娱乐'}]
+            }
         },
         createRecord(state, record) {
             const record2: RecordItem = clone(record);

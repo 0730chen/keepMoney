@@ -1,9 +1,10 @@
 <template>
     <Layout>
         <Tabs class="x" :value.sync="type" class-prefix="type" :data-source="typeList"></Tabs>
-        <ol>
+        <ol v-if="groupedList.length>0">
             <li v-for="(group,index) in groupedList" :key="index">
-                <h3 class="title">{{beautify(group.title)}}</h3><span>￥{{group.total}}</span>
+                <h3 class="title">{{beautify(group.title)}}<span
+                        class="total">￥{{group.total}}</span></h3>
                 <ol>
                     <li v-for="item in group.items" :key="item.id" class="record">
                         <span>{{tagString(item.tags)}}</span>
@@ -13,6 +14,9 @@
                 </ol>
             </li>
         </ol>
+        <div v-else class="noResult">
+            目前没有记账
+        </div>
     </Layout>
 </template>
 
@@ -51,13 +55,11 @@
         }
 
         tagString(tags: Tag[]) {
-            console.log(tags);
             const nameList = []
             for (let i = 0; i < tags.length; i++) {
                 nameList.push(tags[i].name)
             }
-            console.log(nameList);
-            return tags.length === 0 ? '无' : nameList.join(',')
+            return tags.length === 0 ? '无' : nameList.join('，')
         }
 
         get recordList() {
@@ -74,25 +76,27 @@
             const newList = clone(recordList)
                 .filter(r => r.type === this.type)
                 .sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
-            type Result = { title: string; total?: number; items: RecordItem[] }[]
-            const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
-            for (let i = 1; i < newList.length; i++) {
-                const current = newList[i];
-                const last = result[result.length - 1];
-                if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
-                    last.items.push(current);
-                } else {
-                    result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]});
+            if (newList.length === 0) {
+                return []
+            } else {
+                type Result = { title: string; total?: number; items: RecordItem[] }[]
+                const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+                for (let i = 1; i < newList.length; i++) {
+                    const current = newList[i];
+                    const last = result[result.length - 1];
+                    if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
+                        last.items.push(current);
+                    } else {
+                        result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]});
+                    }
                 }
+                result.map(group => {
+                    group.total = group.items.reduce((sum, item) => {
+                        return sum + item.amount;
+                    }, 0);
+                });
+                return result
             }
-            result.map(group => {
-                group.total = group.items.reduce((sum, item) => {
-                    console.log(sum);
-                    console.log(item);
-                    return sum + item.amount;
-                }, 0);
-            });
-            return result
         }
 
         created(): void {
@@ -108,6 +112,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .noResult {
+        font-weight: 1000;
+        text-align: center;
+        font-size: 20px;
     }
 
     .title {

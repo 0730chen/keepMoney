@@ -66,6 +66,7 @@
             this.$emit('update:value', parseFloat(this.output));
             this.$emit('submit', parseFloat(this.output));
             this.output = '0';
+            window.alert('创建成功')
         }
     }
 </script>
