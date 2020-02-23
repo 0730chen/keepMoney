@@ -3,7 +3,7 @@
         <Tabs class="x" :value.sync="type" class-prefix="type" :data-source="typeList"></Tabs>
         <ol>
             <li v-for="(group,index) in groupedList" :key="index">
-                <h3 class="title">{{beautify(group.title)}}</h3>
+                <h3 class="title">{{beautify(group.title)}}</h3><span>￥{{group.total}}</span>
                 <ol>
                     <li v-for="item in group.items" :key="item.id" class="record">
                         <span>{{tagString(item.tags)}}</span>
@@ -51,7 +51,13 @@
         }
 
         tagString(tags: Tag[]) {
-            return tags.length === 0 ? '无' : tags.join(',')
+            console.log(tags);
+            const nameList = []
+            for (let i = 0; i < tags.length; i++) {
+                nameList.push(tags[i].name)
+            }
+            console.log(nameList);
+            return tags.length === 0 ? '无' : nameList.join(',')
         }
 
         get recordList() {
@@ -65,7 +71,9 @@
             }
             type HashTableValue = { title: string; items: RecordItem[] }
             const hashTable: { title: string; items: RecordItem[] }[] = []
-            const newList = clone(recordList).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+            const newList = clone(recordList)
+                .filter(r => r.type === this.type)
+                .sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
             type Result = { title: string; total?: number; items: RecordItem[] }[]
             const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
             for (let i = 1; i < newList.length; i++) {
