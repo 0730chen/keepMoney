@@ -8,6 +8,7 @@
                 @click="toggle(tag)">{{tag.name}}
             </li>
         </ul>
+        <div class="title">橘子记账</div>
     </div>
 </template>
 
@@ -45,7 +46,6 @@
     .tags {
         flex-grow: 1;
         font-size: 14px;
-        padding: 16px;
         flex-grow: 1;
         display: flex;
         flex-direction: column-reverse;
@@ -54,6 +54,8 @@
         > .items {
             display: flex;
             flex-wrap: wrap;
+            flex-grow: 1;
+            padding: 16px 6px;
 
             .selected {
                 background: rgb(249, 219, 99);
@@ -71,6 +73,14 @@
             }
         }
 
+        > .title {
+            background: rgb(249, 219, 99);
+            height: 30px;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 1000;
+        }
+
         > .new {
             padding-top: 16px;
 
@@ -79,7 +89,7 @@
                 border: none;
                 color: #999;
                 border-bottom: 1px solid;
-                padding: 0 4px;
+                padding:0 8px;
             }
         }
     }
